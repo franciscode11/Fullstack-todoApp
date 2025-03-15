@@ -62,7 +62,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
 
   const deleteTodo = async (id: string) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/delete`,
         {
           id,

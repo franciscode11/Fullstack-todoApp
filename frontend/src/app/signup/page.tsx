@@ -2,11 +2,9 @@
 
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const SignUp = () => {
-  const router = useRouter();
+const Signup = () => {
   const auth = useContext(AuthContext);
 
   const [email, setEmail] = useState<string>("");
@@ -35,22 +33,22 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (auth?.responseError && error !== auth?.responseError) {
-      setError(auth?.responseError!);
+    if (auth?.responseError && error !== auth.responseError) {
+      setError(auth.responseError);
     }
-  }, [auth]);
+  }, [auth?.responseError, error]);
 
   useEffect(() => {
     if (error !== auth?.responseError) return;
     setError("");
-  }, []);
+  }, [auth?.responseError, error]);
 
   return (
     <div className="flex flex-col w-screen h-screen items-center justify-center ">
       <div className=" text-gray-800 rounded-lg select-none">
         <div className="mb-6">
           <h1 className="text-2xl text-center mb-2 font-bold">
-            Sign up to TodoApp
+            Sign up for TodoApp
           </h1>
           <p
             className={`${
@@ -87,7 +85,7 @@ const SignUp = () => {
                 error === "Email field is required"
                   ? "border-red-600 border-2"
                   : "border-gray-800"
-              } text-lg py-1 ps-4 rounded bg-transparent border border-gray-800 mb-4 w-sm focus:outline-1 outline-black`}
+              } text-lg py-1 ps-4 w-sm rounded bg-transparent border border-gray-800 mb-4 focus:outline-1 outline-black`}
             />
             <label
               htmlFor="password"
@@ -114,7 +112,7 @@ const SignUp = () => {
                 error === "Password field is required"
                   ? "border-red-600 border-2"
                   : "border-gray-800"
-              } text-lg py-1 ps-4 w-sm  rounded bg-transparent border border-gray-800 mb-10 focus:outline-1 outline-black`}
+              } text-lg py-1 ps-4 w-sm rounded bg-transparent border border-gray-800 mb-10 focus:outline-1 outline-black`}
             />
 
             <button
@@ -122,7 +120,7 @@ const SignUp = () => {
               disabled={auth?.loading}
               className="disabled:bg-gray-300 cursor-pointer bg-gray-950 text-white border-none py-2 rounded-md hover:bg-gray-900"
             >
-              Signup
+              Sign Up
             </button>
           </form>
         </div>
@@ -139,4 +137,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Signup;

@@ -1,11 +1,10 @@
-import Header from "@/components/Header";
-import "@/app/globals.css";
+import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { TodoProvider } from "@/context/TodoContext";
 
 export const metadata = {
   title: "Todo App",
-  description: "Una aplicación para gestionar tareas",
+  description: "A simple todo app",
 };
 
 export default function RootLayout({
@@ -14,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body className="bg-gray-100 text-gray-900">
+    <html lang="en">
+      <body>
         <AuthProvider>
           <TodoProvider>{children}</TodoProvider>
         </AuthProvider>

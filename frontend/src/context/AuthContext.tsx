@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { withCredentials: true }
       );
       await checkUser();
-    } catch (error) {
+    } catch (error: any) {
       setUser(null);
 
       const currentPath = window.location.pathname;
@@ -111,7 +111,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(null);
       router.push("/login");
-    } catch (error) {
+    } catch (error: any) {
       setError("Something went wrong");
     } finally {
       setLoading(false);
