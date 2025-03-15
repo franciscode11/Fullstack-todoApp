@@ -8,8 +8,8 @@ import logger from "../src/utils/logger.js";
 import { errorHandler } from "./middlewares/error.middlewares.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import userRoutes from "./routes/userRoutes.js";
-import todoRoutes from "./routes/todoRoutes.js";
+import userRoutes from "./routes/user.routes.js";
+import todoRoutes from "./routes/todo.routes.js";
 
 dotenv.config();
 
@@ -25,7 +25,10 @@ const allowedOrigins = [process.env.CORS_ORIGIN];
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.some((allowedOrigin) => origin.startsWith(allowedOrigin))
+      ) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
