@@ -79,9 +79,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(response.data.data.user);
       router.push("/login");
-    } catch (err: any) {
+    } catch (err) {
       setUser(null);
-      setError(err?.response?.data?.message || "An error occurred");
+      setError((err as any)?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -98,9 +98,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(response.data.data.user);
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (err) {
       setUser(null);
-      setError(err?.response?.data?.message || "An error occurred");
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     } finally {
       setLoading(false);
     }
