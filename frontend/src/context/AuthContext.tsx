@@ -1,7 +1,13 @@
 "use client";
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+} from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 export interface User {
   id: string;
@@ -26,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string>("");
   const router = useRouter();
 
-  const checkUser = async () => {
+  const checkUser = useCallback(async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/check`,
@@ -34,12 +40,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(response.data.data.user);
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: AxiosError | any) {
       await refresh();
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   const refresh = async () => {
     try {
@@ -49,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { withCredentials: true }
       );
       await checkUser();
-    } catch (error: any) {
+    } catch (error: AxiosError | any) {
       setUser(null);
 
       const currentPath = window.location.pathname;
@@ -61,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [checkUser]);
 
   const signup = async (email: string, password: string) => {
     setLoading(true);
@@ -74,9 +80,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(response.data.data.user);
       router.push("/login");
-    } catch (error: any) {
+    } catch (error: AxiosError | any) {
       setUser(null);
-      setError(error?.response.data.message);
+      setError(error?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -93,9 +99,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(response.data.data.user);
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: AxiosError | any) {
       setUser(null);
-      setError(error?.response.data.message);
+      setError(error?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -111,7 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setUser(null);
       router.push("/login");
-    } catch (error: any) {
+    } catch (error: AxiosError | any) {
       setError("Something went wrong");
     } finally {
       setLoading(false);
