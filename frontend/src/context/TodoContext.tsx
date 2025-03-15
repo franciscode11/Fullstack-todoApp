@@ -55,8 +55,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       );
       setError("");
       if (user) setTodos([response.data.data.todo, ...todos]);
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "An error occurred");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     }
   };
 
@@ -71,8 +75,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       );
       setError("");
       setTodos(todos.filter((todo) => todo._id !== id));
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "An error occurred");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     }
   };
 
@@ -89,8 +97,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
           return todo._id === id ? { ...todo, title } : todo;
         })
       );
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "An error occurred");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     }
   };
 
@@ -105,8 +117,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       setTodos(
         todos.map((todo) => (todo._id === id ? response.data.data.todo : todo))
       );
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "An error occurred");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     }
   };
 
@@ -123,8 +139,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       setTodos(sortedTodos);
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "An error occurred");
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     } finally {
       setLoading(false);
     }
