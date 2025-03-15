@@ -12,7 +12,7 @@ export { app };
 
 // Security and general settings
 app.use(helmet());
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = [`${process.env.NEXT_PUBLIC_API_URL}`];
 app.use(
   cors({
     origin: (origin, callback) => {

@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const checkUser = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4500/api/v1/users/check",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/check`,
         { withCredentials: true }
       );
       setUser(response.data.data.user);
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refresh = async () => {
     try {
       await axios.post(
-        "http://localhost:4500/api/v1/users/refresh",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/refresh`,
         {},
         { withCredentials: true }
       );
@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       setError("");
       const response = await axios.post(
-        "http://localhost:4500/api/v1/users/signup",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/signup`,
         { email, password },
         { withCredentials: true }
       );
@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       setError("");
       const response = await axios.post(
-        "http://localhost:4500/api/v1/users/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -95,7 +95,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       router.push("/dashboard");
     } catch (error: any) {
       setUser(null);
-      console.log(error);
       setError(error?.response.data.message);
     } finally {
       setLoading(false);
@@ -106,15 +105,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:4500/api/v1/users/logout",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/logout`,
         {},
         { withCredentials: true }
       );
       setUser(null);
       router.push("/login");
     } catch (error) {
-      console.log("Error logging out");
-      console.log("here i have to show the messages from the backend");
+      setError("Something went wrong");
     } finally {
       setLoading(false);
     }

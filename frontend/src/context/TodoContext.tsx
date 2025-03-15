@@ -49,7 +49,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const addTodo = async (title: string) => {
     try {
       const response = await axios.post(
-        "http://localhost:4500/api/v1/todos/create",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/create`,
         { title },
         { withCredentials: true }
       );
@@ -63,7 +63,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const deleteTodo = async (id: string) => {
     try {
       const response = await axios.post(
-        "http://localhost:4500/api/v1/todos/delete",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/delete`,
         {
           id,
         },
@@ -79,7 +79,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const editTodo = async (id: string, title: string) => {
     try {
       await axios.patch(
-        "http://localhost:4500/api/v1/todos/edit",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/edit`,
         { id, title },
         { withCredentials: true }
       );
@@ -97,7 +97,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const toggleTodo = async (id: string) => {
     try {
       const response = await axios.patch(
-        "http://localhost:4500/api/v1/todos/toggle",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/toggle`,
         { id },
         { withCredentials: true }
       );
@@ -114,7 +114,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:4500/api/v1/todos/get",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/todos/get`,
         { withCredentials: true }
       );
       setError("");
