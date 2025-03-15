@@ -6,6 +6,7 @@ Backend:
 -expressjs
 -mongoDB
 -mongoose as ODM
+
 FRONTEND:
 -Nextjs
 -tailwind
