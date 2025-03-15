@@ -16,9 +16,6 @@ dotenv.config();
 const app = express();
 export { app };
 
-// Connect to MongoDB
-connectDB();
-
 // Security and general settings
 app.use(helmet());
 const allowedOrigins = [process.env.CORS_ORIGIN];
