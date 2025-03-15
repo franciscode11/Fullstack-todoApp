@@ -42,14 +42,14 @@ const Login = () => {
 
   useEffect(() => {
     if (auth?.responseError && error !== auth?.responseError) {
-      setError(auth?.responseError!);
+      setError(auth?.responseError);
     }
-  }, [auth]);
+  }, [auth?.responseError, error]);
 
   useEffect(() => {
     if (error !== auth?.responseError) return;
     setError("");
-  }, []);
+  }, [auth?.responseError, error]);
 
   return (
     <div className="flex flex-col w-screen h-screen items-center justify-center ">

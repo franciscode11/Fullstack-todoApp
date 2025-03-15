@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import TaskItem from "@/components/TaskItem";
 import { AuthContext } from "@/context/AuthContext";
 import { TodoContext, Todo } from "@/context/TodoContext";
+import Image from "next/image";
 
 export default function Dashboard() {
   const [title, setTitle] = useState<string>("");
@@ -24,7 +25,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (todoGlobals?.todos) setTodos(todoGlobals?.todos);
     if (todoGlobals?.error) setError(todoGlobals?.error);
-  }, [todoGlobals?.todos]);
+  }, [todoGlobals?.todos, todoGlobals?.error]);
 
   //save a new todo
   const onSubmit = async (e: React.FormEvent) => {
@@ -52,7 +53,7 @@ export default function Dashboard() {
           onClick={onLogout}
           className="bg-red-600 cursor-pointer transition-colors duration-200 text-white rounded py-1 px-2 hover:bg-red-700"
         >
-          <img src="logout.svg" alt="" className="h-5" />
+          <Image src="/logout.svg" alt="Logout" width={20} height={20} />
         </button>
       </header>
       <div className="flex flex-col gap-5 mt-2">
@@ -85,9 +86,9 @@ export default function Dashboard() {
               <TaskItem
                 key={todo._id}
                 todo={todo}
-                onDelete={todoGlobals?.deleteTodo}
-                onEdit={todoGlobals?.editTodo}
-                onComplete={todoGlobals?.toggleTodo}
+                onDelete={todoGlobals?.deleteTodo || (() => {})}
+                onEdit={todoGlobals?.editTodo || (() => {})}
+                onComplete={todoGlobals?.toggleTodo || (() => {})}
               />
             ))}
           </div>
