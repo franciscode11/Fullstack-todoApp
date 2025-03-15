@@ -81,7 +81,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       router.push("/login");
     } catch (err) {
       setUser(null);
-      setError((err as any)?.response?.data?.message || "An error occurred");
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     } finally {
       setLoading(false);
     }
