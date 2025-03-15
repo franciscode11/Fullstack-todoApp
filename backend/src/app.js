@@ -6,13 +6,22 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import logger from "../src/utils/logger.js";
 import { errorHandler } from "./middlewares/error.middlewares.js";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
+import todoRoutes from "./routes/todoRoutes.js";
+
+dotenv.config();
 
 const app = express();
 export { app };
 
+// Connect to MongoDB
+connectDB();
+
 // Security and general settings
 app.use(helmet());
-const allowedOrigins = [`${process.env.NEXT_PUBLIC_API_URL}`];
+const allowedOrigins = [process.env.CORS_ORIGIN];
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -60,11 +69,11 @@ app.use(
 );
 
 // Routes
-import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/users", userRouter);
-
-import todoRouter from "./routes/todo.routes.js";
-app.use("/api/v1/todos", todoRouter);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/todos", todoRoutes);
 
 // Error handler middlewares
 app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
