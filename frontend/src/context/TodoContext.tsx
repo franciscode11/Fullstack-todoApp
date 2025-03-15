@@ -8,7 +8,7 @@ import React, {
   useContext,
 } from "react";
 
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { AuthContext, User } from "./AuthContext";
 
 export interface Todo {
@@ -55,7 +55,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       );
       setError("");
       if (user) setTodos([response.data.data.todo, ...todos]);
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       setError(error?.response?.data?.message || "An error occurred");
     }
   };
@@ -71,7 +71,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       );
       setError("");
       setTodos(todos.filter((todo) => todo._id !== id));
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       setError(error?.response?.data?.message || "An error occurred");
     }
   };
@@ -89,7 +89,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
           return todo._id === id ? { ...todo, title } : todo;
         })
       );
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       setError(error?.response?.data?.message || "An error occurred");
     }
   };
@@ -105,7 +105,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       setTodos(
         todos.map((todo) => (todo._id === id ? response.data.data.todo : todo))
       );
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       setError(error?.response?.data?.message || "An error occurred");
     }
   };
@@ -123,7 +123,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       setTodos(sortedTodos);
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       setError(error?.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
