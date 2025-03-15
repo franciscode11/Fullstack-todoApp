@@ -15,7 +15,6 @@ export default function Dashboard() {
   const onLogout = async () => {
     if (auth) {
       await auth.logout();
-      setTodos(() => []);
     }
   };
 
@@ -31,7 +30,6 @@ export default function Dashboard() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title) {
-      setError("Title field is required");
       return;
     }
 

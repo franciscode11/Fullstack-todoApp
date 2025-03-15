@@ -44,9 +44,10 @@ const SignUp = () => {
     if (error !== auth?.responseError) return;
     setError("");
   }, []);
+
   return (
-    <div className="flex flex-col w-screen h-screen items-center justify-center bg-gray-300">
-      <div className="bg-white border border-gray-300 text-gray-800 p-6 px-8 rounded-lg select-none">
+    <div className="flex flex-col w-screen h-screen items-center justify-center ">
+      <div className=" text-gray-800 rounded-lg select-none">
         <div className="mb-6">
           <h1 className="text-2xl text-center mb-2 font-bold">
             Sign up to TodoApp
@@ -86,7 +87,7 @@ const SignUp = () => {
                 error === "Email field is required"
                   ? "border-red-600 border-2"
                   : "border-gray-800"
-              } text-lg py-1 ps-4 rounded bg-transparent border border-gray-800 mb-4 focus:outline-1 outline-black`}
+              } text-lg py-1 ps-4 rounded bg-transparent border border-gray-800 mb-4 w-sm focus:outline-1 outline-black`}
             />
             <label
               htmlFor="password"
@@ -113,7 +114,7 @@ const SignUp = () => {
                 error === "Password field is required"
                   ? "border-red-600 border-2"
                   : "border-gray-800"
-              } text-lg py-1 ps-4 rounded bg-transparent border border-gray-800 mb-10 focus:outline-1 outline-black`}
+              } text-lg py-1 ps-4 w-sm  rounded bg-transparent border border-gray-800 mb-10 focus:outline-1 outline-black`}
             />
 
             <button

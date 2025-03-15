@@ -84,6 +84,11 @@ export function TodoProvider({ children }: { children: ReactNode }) {
         { withCredentials: true }
       );
       setError("");
+      setTodos(
+        todos.map((todo) => {
+          return todo._id === id ? { ...todo, title } : todo;
+        })
+      );
     } catch (error: any) {
       setError(error?.response.data.message);
     }
@@ -97,6 +102,9 @@ export function TodoProvider({ children }: { children: ReactNode }) {
         { withCredentials: true }
       );
       setError("");
+      setTodos(
+        todos.map((todo) => (todo._id === id ? response.data.data.todo : todo))
+      );
     } catch (error: any) {
       setError(error?.response.data.message);
     }
