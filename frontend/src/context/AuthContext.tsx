@@ -50,7 +50,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { withCredentials: true }
       );
       setUser(response.data.data.user);
-      router.push("/dashboard");
+      if (
+        window.location.pathname === "/login" ||
+        window.location.pathname === "/signup"
+      ) {
+        router.push("/dashboard");
+      }
     } catch {
       await refresh();
     } finally {

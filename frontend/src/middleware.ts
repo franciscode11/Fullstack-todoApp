@@ -26,10 +26,6 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// export const config = {
-//   matcher: ["/login", "/signup", "/dashboard/:path*"],
-// };
-
 export const config = {
-  matcher: ["/((?!_next/static|favicon.ico).*)"],
+  matcher: ["/login", "/signup", "/dashboard/:path*"],
 };

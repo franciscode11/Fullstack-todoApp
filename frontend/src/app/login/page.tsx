@@ -15,8 +15,7 @@ const Login = () => {
 
   useEffect(() => {
     console.log("Login User: ", auth?.user);
-    if (auth?.user) {
-      console.log("Redirecting to dashboard...");
+    if (auth?.isAuthenticated) {
       router.push("/dashboard");
     }
   }, [auth?.user, router]);
