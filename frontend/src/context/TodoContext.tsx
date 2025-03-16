@@ -42,6 +42,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     console.log("User:", user);
     if (user) {
+      console.log("Calling getTodos");
       getTodos();
     }
   }, [user]);
@@ -140,6 +141,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
       );
       setTodos(sortedTodos);
     } catch (err) {
+      console.log(err);
       if (axios.isAxiosError(err) && err.response) {
         setError(err.response.data.message || "An error occurred");
       } else {

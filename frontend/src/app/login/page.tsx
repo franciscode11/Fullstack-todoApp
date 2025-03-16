@@ -14,7 +14,9 @@ const Login = () => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
+    console.log("Login User: ", auth?.user);
     if (auth?.user) {
+      console.log("Redirecting to dashboard...");
       router.push("/dashboard");
     }
   }, [auth?.user, router]);
