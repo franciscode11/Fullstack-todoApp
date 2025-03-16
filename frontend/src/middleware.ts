@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const accessTokenCookie =
-    req.cookies.get("accessToken")?.value.trim() || null;
-  const refreshTokenCookie =
-    req.cookies.get("refreshToken")?.value.trim() || null;
+  const accessTokenCookie = req.cookies.get("accessToken")?.value || null;
+  const refreshTokenCookie = req.cookies.get("refreshToken")?.value || null;
 
   const publicRoutes = ["/login", "/signup", "/"];
 
