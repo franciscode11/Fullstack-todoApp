@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string>("");
   const router = useRouter();
 
-  const refresh = useCallback(async () => {
+  const refresh = async () => {
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/refresh`,
@@ -47,9 +47,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         router.push("/login");
       }
     }
-  }, [router]);
+  };
 
-  const checkUser = useCallback(async () => {
+  const checkUser = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/check`,
@@ -62,11 +62,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, [router, refresh]);
+  };
 
   useEffect(() => {
     checkUser();
-  }, [checkUser]);
+  }, []);
 
   const signup = async (email: string, password: string) => {
     setLoading(true);

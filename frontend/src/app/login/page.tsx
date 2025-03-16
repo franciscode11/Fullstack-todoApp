@@ -17,7 +17,7 @@ const Login = () => {
     if (auth?.user) {
       router.push("/dashboard");
     }
-  }, [auth, router]);
+  }, [auth?.user, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,12 +44,9 @@ const Login = () => {
     if (auth?.responseError && error !== auth?.responseError) {
       setError(auth?.responseError);
     }
-  }, [auth, error]);
-
-  useEffect(() => {
     if (error !== auth?.responseError) return;
     setError("");
-  }, [auth?.responseError, error]);
+  }, [auth?.responseError]);
 
   return (
     <div className="flex flex-col w-screen h-screen items-center justify-center ">
